@@ -59,3 +59,9 @@ export type Hotel = {
   property: Property;
   offer: Offer;
 };
+
+export type HotelListProps = {
+  hotels: Hotel[];
+  onSort: (sortType: 'price-asc' | 'price-desc') => void;
+ };
+ 
