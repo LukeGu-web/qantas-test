@@ -19,14 +19,14 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto py-4 px-4">
+    <main className="min-h-screen bg-white">
+      <header className="">
+        <div className="max-w-7xl mx-auto py-8 px-4">
           <Image
             src="/qantas-logo.png"
             alt="Qantas Logo"
-            width={120}
-            height={32}
+            width={240}
+            height={64}
             priority
           />
         </div>

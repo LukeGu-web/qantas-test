@@ -16,11 +16,11 @@ const formatPrice = (amount: number, currency: string) => {
 
 export const HotelCard: React.FC<HotelCardProps> = ({ hotel }) => {
   return (
-    <div className="flex border rounded-lg overflow-hidden shadow-md bg-white">
+    <div className="flex overflow-hidden bg-white ">
       {/* image section */}
       <div className="relative w-48 h-48">
         {hotel.offer.promotion && (
-          <span className="absolute top-4 left-0 text-sm z-10 bg-white p-2 text-red-800">
+          <span className="absolute top-4 left-0 text-xs font-semibold z-10 bg-white py-2 px-4 text-red-700">
             {hotel.offer.promotion.title}
           </span>
         )}
@@ -28,17 +28,17 @@ export const HotelCard: React.FC<HotelCardProps> = ({ hotel }) => {
           src={hotel.property.previewImage.url}
           alt={hotel.property.previewImage.caption}
           fill
-          className="object-cover"
+          className="object-cover p-2"
         />
       </div>
       {/* content section */}
-      <div className="flex-1 p-4">
+      <div className="flex-1 py-4 ml-4 border-t border-gray-200">
         <div className="flex h-full justify-between">
           {/* middle section */}
           <div className="w-2/3 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-4">
-                <h2 className="text-xl font-semibold text-black max-w-1/2 truncate">{hotel.property.title}</h2>
+                <h2 className="text-xl font-medium text-black max-w-1/2 truncate">{hotel.property.title}</h2>
                 <Rating
                   ratingValue={hotel.property.rating.ratingValue}
                   ratingType={hotel.property.rating.ratingType}
@@ -67,14 +67,14 @@ export const HotelCard: React.FC<HotelCardProps> = ({ hotel }) => {
           <div className="flex flex-col items-center justify-center gap-4 h-full">
             <div className='flex flex-col items-center justify-center'>
             <p className='text-sm text-gray-500'>
-              1 night total ({hotel.offer.displayPrice.currency})
+              <span className='font-bold text-gray-600'>1</span> night total ({hotel.offer.displayPrice.currency})
             </p>
             <p className="text-3xl font-medium text-black">
               {formatPrice(hotel.offer.displayPrice.amount, hotel.offer.displayPrice.currency)}
             </p>
             </div>
             {hotel.offer.savings && (
-              <p className="text-lg text-red-600">
+              <p className="text-lg text-red-700">
                 Save {formatPrice(hotel.offer.savings.amount, hotel.offer.savings.currency)}~
               </p>
             )}
