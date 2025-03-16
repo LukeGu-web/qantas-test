@@ -1,13 +1,10 @@
-interface RatingProps {
-  value: number;
-  type: 'star' | 'self';
-}
+import { RatingType, Rating as RatingProps } from '../../types';
 
-export const Rating: React.FC<RatingProps> = ({ value, type }) => {
-  const fullStars = Math.floor(value);
-  const hasHalfStar = value % 1 !== 0;
-  const icon = type === 'star' ? '★' : '●';
-  const emptyIcon = type === 'star' ? '☆' : '○';
+export const Rating: React.FC<RatingProps> = ({ ratingValue, ratingType }) => {
+  const fullStars = Math.floor(ratingValue);
+  const hasHalfStar = ratingValue % 1 !== 0;
+  const icon = ratingType === RatingType.STAR ? '★' : '●';
+  const emptyIcon = ratingType === RatingType.STAR ? '☆' : '○';
 
   return (
     <div className="flex items-center text-yellow-500">
