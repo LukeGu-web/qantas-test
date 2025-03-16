@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Hotel, CancellationType } from '../../types';
+import { Hotel, CancellationType } from '~/types/hotel';
 import { Rating } from '../Rating/Rating';
 
 interface HotelCardProps {
@@ -58,7 +58,7 @@ export const HotelCard: React.FC<HotelCardProps> = ({ hotel }) => {
             {hotel.offer.cancellationOption.cancellationType === CancellationType.FREE_CANCELLATION ? (
               <span className="text-green-600">Free cancellation</span>
             ) : (
-              <span className=""></span>
+              <span></span>
             )}
 
           </div>

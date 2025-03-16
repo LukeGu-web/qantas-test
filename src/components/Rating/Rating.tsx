@@ -1,4 +1,4 @@
-import { RatingType, Rating as RatingProps } from '../../types';
+import { RatingType, Rating as RatingProps } from '~/types/hotel';
 
 export const Rating: React.FC<RatingProps> = ({ ratingValue, ratingType }) => {
   const fullStars = Math.floor(ratingValue);
@@ -10,19 +10,27 @@ export const Rating: React.FC<RatingProps> = ({ ratingValue, ratingType }) => {
     <div className="flex items-center text-yellow-300">
       {[...Array(5)].map((_, index) => {
         if (index < fullStars) {
-          return <span className={`${selfIconClass}`} key={index}>{icon}</span>;
+          return <span className={`${selfIconClass}`} key={`star-${index}`}>{icon}</span>;
         } else if (index === fullStars && hasHalfStar) {
           return (
-          <div className='relative'>
-            <span className={`${selfIconClass} text-gray-300`} key={index}>{icon}</span>
-            <span
-              className={`${selfIconClass} absolute overflow-hidden w-1/2 left-0 top-0`}
-            >
-              {icon}
-            </span>
-          </div>)
+            <div className="relative" key={`half-star-${index}`} data-testid="half-star">
+              <span className={`${selfIconClass} text-gray-300`}>{icon}</span>
+              <span
+                className={`${selfIconClass} absolute overflow-hidden w-1/2 left-0 top-0`}
+              >
+                {icon}
+              </span>
+            </div>
+          );
         }
-        return <span className={`${ratingType === RatingType.SELF && 'text-2xl'} text-gray-300`} key={index}>{icon}</span>;
+        return (
+          <span 
+            className={`${selfIconClass} text-gray-300`} 
+            key={`empty-star-${index}`}
+          >
+            {icon}
+          </span>
+        );
       })}
     </div>
   );
