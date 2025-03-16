@@ -13,6 +13,11 @@ export enum PromotionType {
   CAMPAIGN = 'CAMPAIGN',
 }
 
+export enum SortType {
+  PRICE_ASC = 'price-asc',
+  PRICE_DESC = 'price-desc'
+}
+
 export type Rating = {
   ratingValue: number;
   ratingType: RatingType;
@@ -62,6 +67,6 @@ export type Hotel = {
 
 export type HotelListProps = {
   hotels: Hotel[];
-  onSort: (sortType: 'price-asc' | 'price-desc') => void;
+  onSort: (sortType: SortType) => void;
  };
  

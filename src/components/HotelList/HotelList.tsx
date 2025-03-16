@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import { SortByPrice } from '../SortByPrice';
 import { HotelCard } from '../HotelCard';
-import { HotelListProps } from '../../types';
+import { HotelListProps, SortType } from '~/types/hotel';
 
 const HotelList: React.FC<HotelListProps> = ({ hotels, onSort }) => {
-  const [sortType, setSortType] = useState<'price-asc' | 'price-desc'>('price-asc');
+  const [sortType, setSortType] = useState<SortType>(SortType.PRICE_ASC);
 
-  const handleSort = (newSortType: 'price-asc' | 'price-desc') => {
+  const handleSort = (newSortType:SortType) => {
     setSortType(newSortType);
     onSort(newSortType);
   };
