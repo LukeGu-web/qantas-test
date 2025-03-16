@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { HotelList } from '../components/HotelList';
-import { Hotel } from '../types';
-import hotelData from '../mock/data.json';
+import {HotelList} from '~/components/HotelList/HotelList';
+import { Hotel } from '~/types/hotel';
+import hotelData from '~/mock/data.json';
 
 export default function Home() {
   const [hotels, setHotels] = useState<Hotel[]>(hotelData.results as Hotel[]);

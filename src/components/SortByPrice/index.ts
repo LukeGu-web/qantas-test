@@ -1,1 +1,0 @@
-export { SortByPrice } from './SortByPrice'; 

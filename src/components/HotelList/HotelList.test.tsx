@@ -1,14 +1,14 @@
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
-import HotelList from './HotelList';
+import { HotelList } from './HotelList';
 import { Hotel, RatingType, CancellationType, PromotionType } from '~/types/hotel';
 
 // Mock child components
-jest.mock('../HotelCard', () => ({
+jest.mock('../HotelCard/HotelCard', () => ({
   HotelCard: ({ hotel }: { hotel: Hotel }) => <div data-testid={`hotel-${hotel.id}`}>{hotel.property.title}</div>
 }));
 
-jest.mock('../SortByPrice', () => ({
+jest.mock('../SortByPrice/SortByPrice', () => ({
   SortByPrice: ({ value, onChange }: { value: string; onChange: (value: string) => void }) => (
     <select data-testid="sort-select" value={value} onChange={(e) => onChange(e.target.value)}>
       <option value="price-asc">Low to High</option>
@@ -18,69 +18,69 @@ jest.mock('../SortByPrice', () => ({
 }));
 
 const mockHotels: Hotel[] = [
-    {
-      id: 'hotel1',
-      property: {
-        propertyId: 'P1',
-        title: 'Cheap Hotel',
-        address: ['Address 1'],
-        previewImage: {
-          url: 'image1.jpg',
-          caption: 'Image 1',
-          imageType: 'PRIMARY'
-        },
-        rating: {
-          ratingValue: 3,
-          ratingType: RatingType.STAR
-        }
+  {
+    id: 'hotel1',
+    property: {
+      propertyId: 'P1',
+      title: 'Cheap Hotel',
+      address: ['Address 1'],
+      previewImage: {
+        url: 'image1.jpg',
+        caption: 'Image 1',
+        imageType: 'PRIMARY'
       },
-      offer: {
-        promotion: {
-          title: 'Special Deal',
-          type: PromotionType.MEMBER
-        },
-        name: 'Basic Room',
-        displayPrice: {
-          amount: 100,
-          currency: 'AUD'
-        },
-        cancellationOption: {
-          cancellationType: CancellationType.FREE_CANCELLATION
-        }
+      rating: {
+        ratingValue: 3,
+        ratingType: RatingType.STAR
       }
     },
-    {
-      id: 'hotel2',
-      property: {
-        propertyId: 'P2',
-        title: 'Expensive Hotel',
-        address: ['Address 2'],
-        previewImage: {
-          url: 'image2.jpg',
-          caption: 'Image 2',
-          imageType: 'PRIMARY'
-        },
-        rating: {
-          ratingValue: 5,
-          ratingType: RatingType.STAR
-        }
+    offer: {
+      promotion: {
+        title: 'Special Deal',
+        type: PromotionType.MEMBER
       },
-      offer: {
-        promotion: {
-          title: 'Luxury Deal',
-          type: PromotionType.CAMPAIGN
-        },
-        name: 'Luxury Suite',
-        displayPrice: {
-          amount: 300,
-          currency: 'AUD'
-        },
-        cancellationOption: {
-          cancellationType: CancellationType.NOT_REFUNDABLE
-        }
+      name: 'Basic Room',
+      displayPrice: {
+        amount: 100,
+        currency: 'AUD'
+      },
+      cancellationOption: {
+        cancellationType: CancellationType.FREE_CANCELLATION
       }
     }
-  ];
+  },
+  {
+    id: 'hotel2',
+    property: {
+      propertyId: 'P2',
+      title: 'Expensive Hotel',
+      address: ['Address 2'],
+      previewImage: {
+        url: 'image2.jpg',
+        caption: 'Image 2',
+        imageType: 'PRIMARY'
+      },
+      rating: {
+        ratingValue: 5,
+        ratingType: RatingType.STAR
+      }
+    },
+    offer: {
+      promotion: {
+        title: 'Luxury Deal',
+        type: PromotionType.CAMPAIGN
+      },
+      name: 'Luxury Suite',
+      displayPrice: {
+        amount: 300,
+        currency: 'AUD'
+      },
+      cancellationOption: {
+        cancellationType: CancellationType.NOT_REFUNDABLE
+      }
+    }
+  }
+];
 
 describe('HotelList Component', () => {
   const mockOnSort = jest.fn();
@@ -91,7 +91,7 @@ describe('HotelList Component', () => {
 
   it('renders all hotels', () => {
     render(<HotelList hotels={mockHotels} onSort={mockOnSort} />);
-    
+
     expect(screen.getByTestId('hotel-hotel1')).toBeInTheDocument();
     expect(screen.getByTestId('hotel-hotel2')).toBeInTheDocument();
   });
@@ -104,19 +104,19 @@ describe('HotelList Component', () => {
 
   it('calls onSort when sort option changes', () => {
     render(<HotelList hotels={mockHotels} onSort={mockOnSort} />);
-    
+
     const sortSelect = screen.getByTestId('sort-select');
     fireEvent.change(sortSelect, { target: { value: 'price-desc' } });
-    
+
     expect(mockOnSort).toHaveBeenCalledWith('price-desc');
   });
 
   it('maintains sort selection after sorting', () => {
     const { rerender } = render(<HotelList hotels={mockHotels} onSort={mockOnSort} />);
-    
+
     const sortSelect = screen.getByTestId('sort-select');
     fireEvent.change(sortSelect, { target: { value: 'price-desc' } });
-    
+
     rerender(<HotelList hotels={mockHotels} onSort={mockOnSort} />);
     expect(sortSelect).toHaveValue('price-desc');
   });

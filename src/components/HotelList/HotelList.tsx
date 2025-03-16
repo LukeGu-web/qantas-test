@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { SortByPrice } from '../SortByPrice';
-import { HotelCard } from '../HotelCard';
+import { SortByPrice } from '../SortByPrice/SortByPrice';
+import { HotelCard } from '../HotelCard/HotelCard';
 import { HotelListProps, SortType } from '~/types/hotel';
 
-const HotelList: React.FC<HotelListProps> = ({ hotels, onSort }) => {
+export const HotelList: React.FC<HotelListProps> = ({ hotels, onSort }) => {
   const [sortType, setSortType] = useState<SortType>(SortType.PRICE_ASC);
 
   const handleSort = (newSortType:SortType) => {
@@ -33,5 +33,3 @@ const HotelList: React.FC<HotelListProps> = ({ hotels, onSort }) => {
     </div>
   );
 };
-
-export default HotelList; 
